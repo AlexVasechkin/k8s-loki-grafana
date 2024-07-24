@@ -14,3 +14,5 @@ cp loki/values.yaml loki/values-default.yaml
 
 # получаем название dnsService
 kubectl get svc --namespace=kube-system -l k8s-app=kube-dns
+
+helm upgrade --install --create-namespace --values loki-values-real.yaml loki -n loki grafana/loki
