@@ -4,6 +4,7 @@ metadata:
   name: grafana-ingress
   annotations:
     nginx.ingress.kubernetes.io/add-base-url: "true" # включает base url
+  namespace: loki
 spec:
   rules:
   - host: grafana.test
@@ -13,6 +14,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: loki-stack-grafana
+            name: grafana
             port: 
               number: 80
