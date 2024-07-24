@@ -11,3 +11,6 @@ helm pull grafana/loki
 tar -zxf ./loki-*.tgz
 
 cp loki/values.yaml loki/values-default.yaml
+
+# получаем название dnsService
+kubectl get svc --namespace=kube-system -l k8s-app=kube-dns

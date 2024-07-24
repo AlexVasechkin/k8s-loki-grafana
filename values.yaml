@@ -5,9 +5,9 @@ global:
   # -- Overrides the priorityClassName for all pods
   priorityClassName: null
   # -- configures cluster domain ("cluster.local" by default)
-  clusterDomain: "cluster.local"
+  clusterDomain: "cluster.local" # поменять, если менял в кластере
   # -- configures DNS service name
-  dnsService: "kube-dns"
+  dnsService: "kube-dns" # поменять, если менял в кластере
   # -- configures DNS service namespace
   dnsNamespace: "kube-system"
 # -- Overrides the chart's name
@@ -280,7 +280,7 @@ loki:
     tracing:
       enabled: {{ .Values.loki.tracing.enabled }}
   # Should authentication be enabled
-  auth_enabled: true
+  auth_enabled: false # чтобы promtail мог собирать данные без аутентификации
   # -- memberlist configuration (overrides embedded default)
   memberlistConfig: {}
   # -- Extra memberlist configuration
@@ -312,10 +312,10 @@ loki:
   storage:
     # Loki requires a bucket for chunks and the ruler. GEL requires a third bucket for the admin API.
     # Please provide these values if you are using object storage.
-    # bucketNames:
-    #   chunks: FIXME
-    #   ruler: FIXME
-    #   admin: FIXME
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
     type: s3
     s3:
       s3: null
@@ -324,7 +324,7 @@ loki:
       secretAccessKey: null
       accessKeyId: null
       signatureVersion: null
-      s3ForcePathStyle: false
+      s3ForcePathStyle: true # чтобы добавлял названия бакетов к endpoint
       insecure: false
       http_config: {}
       # -- Check https://grafana.com/docs/loki/latest/configure/#s3_storage_config for more info on how to provide a backoff_config
